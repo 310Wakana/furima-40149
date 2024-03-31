@@ -53,7 +53,7 @@ has_one :address
 |Column         |Type       |Options                        |
 |---------------|-----------|-------------------------------|
 |postal_code    |string     |null: false                    |
-|prefecture_id  |string     |null: false                    |
+|prefecture_id  |integer    |null: false                    |
 |municipality   |string     |null: false                    |
 |house_number   |string     |null: false                    |
 |building       |string     |                               |
