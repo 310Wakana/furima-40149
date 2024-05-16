@@ -307,7 +307,7 @@ DEPENDENCIES
   pg
   puma (~> 5.0)
   rails (~> 7.0.0)
-  rspec-rails
+  rspec-rails (~> 4.0.0)
   rubocop
   selenium-webdriver
   sprockets-rails

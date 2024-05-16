@@ -31,27 +31,27 @@ RSpec.describe Item, type: :model do
       it 'カテゴリーの情報が"1"では出品できない' do
         @item.category_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category Category can't be blank")
+        expect(@item.errors.full_messages).to include("Category can't be blank")
       end
       it '商品の状態の情報が"1"では出品できない' do
         @item.state_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("State State can't be blank")
+        expect(@item.errors.full_messages).to include("State can't be blank")
       end
       it '配送料の負担の情報が"1"では出品できない' do
         @item.delivery_charges_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Delivery charges Delivery_charges can't be blank")
+        expect(@item.errors.full_messages).to include("Delivery charges can't be blank")
       end
       it '発送元の地域の情報が"Id:1"では出品できない' do
         @item.prefecture_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture Prefecture can't be blank")
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
       it '発送までの日数の情報が"Id:1"では出品できない' do
         @item.arrival_date_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Arrival date Arrival_date can't be blank")
+        expect(@item.errors.full_messages).to include("Arrival date can't be blank")
       end
       it '価格の情報が空では出品できない' do
         @item.price = ''
@@ -61,16 +61,17 @@ RSpec.describe Item, type: :model do
       it '価格が￥300より小さい場合は出品できない' do
         @item.price = 299
         @item.valid?
-        # expect (@item.errors.full_messages).to include("Price can't apply")
+        expect(@item.errors.full_messages).to include("Price doesn't apply")
       end
       it '価格が￥9,999,999より大きい場合は出品できない' do
         @item.price = 10_000_000
-        # expect(@item.errors.full_messages).to include("Price isn't equal 9_999_999")
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price doesn't apply")
       end
       it '価格が全角数字では出品できない' do
         @item.price = '１２３４'
         @item.valid?
-        # expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include("Price doesn't apply")
       end
     end
   end
