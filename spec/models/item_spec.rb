@@ -68,10 +68,15 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price doesn't apply")
       end
-      it '価格が全角数字では出品できない' do
+      it '価格は全角数字だと出品できない' do
         @item.price = '１２３４'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price doesn't apply")
+      end
+      it 'userが紐付いていないと保存できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
   end

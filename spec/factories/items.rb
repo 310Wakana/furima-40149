@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :item do
-    image {'image'}
+
     item {'item'}
     concept {'concept'}
     category_id {2}
@@ -8,9 +8,13 @@ FactoryBot.define do
     delivery_charges_id {2}
     prefecture_id {2}
     arrival_date_id {2}
-    price {rand(300..9_999_999)}
-
+    price {'1000'}
+  
     association :user
+
+    after(:build) do |item|
+      item.image.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
+    end
   end
 
 end
