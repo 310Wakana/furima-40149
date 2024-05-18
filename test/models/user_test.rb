@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   RSpec.describe User, type: :model do
@@ -14,4 +14,3 @@ class UserTest < ActiveSupport::TestCase
   #   assert true
   # end
 end
-
