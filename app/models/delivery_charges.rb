@@ -7,4 +7,5 @@ class DeliveryCharges < ActiveHash::Base
 
   include ActiveHash::Associations
   has_many :item
+  belongs_to :record
 end
