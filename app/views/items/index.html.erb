@@ -129,9 +129,10 @@
     </div>
     <ul class='item-lists'>
 
+      <% if @items.any? %>
       <li class='list'>
-        <%= link_to url: root_path do %>
         <% @items.each do |item| %>
+        <%= link_to root_path do %>
         <div class='item-img-content'>
           <%= image_tag item.image, class: 'item-image' if item.image.attached? %>
 
@@ -140,8 +141,8 @@
             <span>Sold Out!!</span>
           </div>
           <% end %>
-
         </div>
+
         <div class='item-info'>
           <h3 class='item-name'>
             <%= item.item %>
@@ -158,6 +159,7 @@
         <% end %>
       </li>
 
+    <% else %>
       <li class='list'>
         <%= link_to '#' do %>
         <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
@@ -175,6 +177,7 @@
         </div>
         <% end %>
       </li>
+    <% end %>
 
     </ul>
   </div>
