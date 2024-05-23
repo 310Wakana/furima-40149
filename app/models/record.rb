@@ -1,9 +1,11 @@
 class Record < ApplicationRecord
-  belongs_to :item
-  belongs_to :user
-  has_many_attached :images
-  belongs_to :delivery_charges
-  
+  attr_accessor :token
 
-  validates :record, presence: true
+  belongs_to :user
+  belongs_to :item
+  has_one :address
+  
+  validates :token, presence: true
+
 end
+
