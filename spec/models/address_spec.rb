@@ -76,9 +76,19 @@ RSpec.describe Address, type: :model do
           expect(@address.errors.full_messages).to include("Phone number is invalid.")
         end
         it "tokenが空では登録できないこと" do
-          @record_address.token = nil
-          @record_address.valid?
-          expect(@record_address.errors.full_messages).to include("Token can't be blank")
+          @address.token = nil
+          @address.valid?
+          expect(@address.errors.full_messages).to include("Token can't be blank")
+        end
+        it "user_idが空では登録できないこと" do
+          @address.user_id = nil
+          @address.valid?
+          expect(@address.errors.full_messages).to include("User can't be blank")
+        end
+        it "item_idが空では登録できないこと" do
+          @address.item_id = nil
+          @address.valid?
+          expect(@address.errors.full_messages).to include("Item can't be blank")
         end
       end
     end

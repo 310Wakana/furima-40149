@@ -1,7 +1,6 @@
 class RecordsController < ApplicationController
     before_action :authenticate_user!, only: [:index, :create]
     before_action :set_item, only: [:index, :create]
-    before_action :find_item, only: :create
 
     def index
         gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -33,14 +32,9 @@ class RecordsController < ApplicationController
         end
     end
 
-
-    def find_item
-        @item = Item.find(params[:item_id])
-      end
-
     private
     def record_params
-        params.require(:record_address).permit(:postal_code, :prefecture_id, :municipality, :house_number, :building, :phone_number, :price).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+        params.require(:record_address).permit(:postal_code, :prefecture_id, :municipality, :house_number, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
     end
 
     def item_params
@@ -49,5 +43,6 @@ class RecordsController < ApplicationController
 
     def set_item
         @item = Item.find(item_params[:id])
+        redirect_to root_path if @item.record.present?
     end
 end
