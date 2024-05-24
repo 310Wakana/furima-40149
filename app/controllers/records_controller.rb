@@ -20,7 +20,7 @@ class RecordsController < ApplicationController
               card: record_params[:token],
               currency: 'jpy'
                 )
-            Record.create(item_id: params[:id], user_id: params[:id])
+            @record_address.save
             redirect_to root_path
             else
                 gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -30,6 +30,10 @@ class RecordsController < ApplicationController
             redirect_to root_path
         end
     end
+
+    def find_item
+        @item = Item.find(params[:item_id])
+      end
 
     private
     def record_params
