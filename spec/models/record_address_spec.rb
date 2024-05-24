@@ -41,7 +41,7 @@ RSpec.describe RecordAddress, type: :model do
           expect(@record_address.errors.full_messages).to include("Postal code is invalid.")
         end
         it '都道府県が空では購入できない' do
-          @record_address.prefecture_id = ''
+          @record_address.prefecture_id = '1'
           @record_address.valid?
           expect(@record_address.errors.full_messages).to include("Prefecture can't be blank")
         end

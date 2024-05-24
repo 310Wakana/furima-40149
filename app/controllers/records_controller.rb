@@ -1,17 +1,19 @@
 class RecordsController < ApplicationController
     before_action :authenticate_user!, only: [:index, :create]
+    before_action :set_item, only: [:index, :create]
     before_action :find_item, only: :create
 
     def index
         gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-        @record_address = RecordAddress.new
-        @item = Item.find(item_params[:id])
-
+        if current_user.id != @item.user_id?
+            @record_address = RecordAddress.new
+        else
+            redirect_to root_path
+        end
     end
 
     def create
         @record_address = RecordAddress.new(record_params)
-        @item = Item.find(item_params[:id])
         if current_user.id != @item.user_id?
             if @record_address.valid?
             Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
@@ -31,6 +33,7 @@ class RecordsController < ApplicationController
         end
     end
 
+
     def find_item
         @item = Item.find(params[:item_id])
       end
@@ -42,5 +45,9 @@ class RecordsController < ApplicationController
 
     def item_params
         @item = Item.find(params[:item_id])
+    end
+
+    def set_item
+        @item = Item.find(item_params[:id])
     end
 end

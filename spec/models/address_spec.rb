@@ -41,7 +41,7 @@ RSpec.describe Address, type: :model do
           expect(@address.errors.full_messages).to include("Postal code is invalid.")
         end
         it '都道府県が空では購入できない' do
-          @address.prefecture_id = ''
+          @address.prefecture_id = '1'
           @address.valid?
           expect(@address.errors.full_messages).to include("Prefecture can't be blank")
         end
@@ -54,11 +54,6 @@ RSpec.describe Address, type: :model do
           @address.house_number = ''
           @address.valid?
           expect(@address.errors.full_messages).to include("House number can't be blank")
-        end
-        it '電話番号が空では購入できない' do
-          @address.phone_number = ''
-          @address.valid?
-          expect(@address.errors.full_messages).to include("Phone number can't be blank")
         end
         it '電話番号が空では購入できない' do
           @address.phone_number = ''
@@ -79,6 +74,11 @@ RSpec.describe Address, type: :model do
           @address.phone_number = '０９０ー１２３４ー５６７８'
           @address.valid?
           expect(@address.errors.full_messages).to include("Phone number is invalid.")
+        end
+        it "tokenが空では登録できないこと" do
+          @record_address.token = nil
+          @record_address.valid?
+          expect(@record_address.errors.full_messages).to include("Token can't be blank")
         end
       end
     end

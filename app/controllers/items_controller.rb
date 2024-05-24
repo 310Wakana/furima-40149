@@ -47,7 +47,6 @@ class ItemsController < ApplicationController
   end
 
   def redirect_to_root
-    @item = Item.find(params[:id])
     if @item.record.present?
       redirect_to root_path
     end
