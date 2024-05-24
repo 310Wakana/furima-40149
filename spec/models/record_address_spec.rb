@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe RecordAddress, type: :model do
   before do
     user = FactoryBot.create(:user)
+    @item = FactoryBot.create(:item)
     @record_address = FactoryBot.build(:record_address, user_id: user.id)
   end
 
