@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_17_133508) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_20_143224) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_17_133508) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "cards", charset: "utf8", force: :cascade do |t|
+    t.string "customer_token", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_cards_on_user_id"
+  end
+
   create_table "category_ids", charset: "utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -61,9 +69,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_17_133508) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "record_addresses", charset: "utf8", force: :cascade do |t|
+    t.string "postal_code", null: false
+    t.integer "prefecture_id", null: false
+    t.string "municipality", null: false
+    t.string "house_number", null: false
+    t.string "building"
+    t.string "phone_number", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_id"], name: "index_addresses_on_record_id"
+  end
+
   create_table "records", charset: "utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "item_id", limit: 11, default: "", null: false
+    t.integer "user_id", null: false
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
@@ -86,5 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_17_133508) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cards", "users"
   add_foreign_key "items", "users"
+  add_foreign_key "record_addresses", "records"
 end
