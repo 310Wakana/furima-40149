@@ -1,6 +1,5 @@
 <%= include_gon %>
 <%= render "shared/second-header"%>
-<% if @record.present? || @item.user != current_user %>
 
 <div class='transaction-contents'>
   <div class='transaction-main'>
@@ -130,4 +129,3 @@
 </div>
 
 <%= render "shared/second-footer"%>
-<% end %>

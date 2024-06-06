@@ -38,7 +38,7 @@
   <% else current_user.id != @item.user_id %>
     <% if @item.record == nil %>
       <%= link_to "購入画面に進む", item_records_path(@item.id) , data: { turbo: false } ,class:"item-red-btn"%>
-  <% end %>
+    <% end %>
   <% end %>
 <% end %>
  
